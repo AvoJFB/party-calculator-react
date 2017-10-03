@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Example from './components/Example';
+import App from './components/App';
 
 // eslint-disable-next-line react/jsx-filename-extension
-ReactDOM.render(<Example />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 if (module.hot) {
   module.hot.accept();
