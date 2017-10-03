@@ -1,0 +1,23 @@
+{
+  "name": "party-calculator-react",
+  "version": "1.0.0",
+  "description": "App for calculating party costs by each participant",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvoJFB/party-calculator-react.git"
+  },
+  "author": "avojfb, artemijan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AvoJFB/party-calculator-react/issues"
+  },
+  "homepage": "https://github.com/AvoJFB/party-calculator-react#readme",
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
