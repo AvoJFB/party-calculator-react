@@ -17,6 +17,25 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000',
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: { modules: true },
+          },
+        ],
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules'),
+        ],
+      },
+      {
         test: /\.jsx?$/,
         include: [
           path.resolve(__dirname, 'src'),
