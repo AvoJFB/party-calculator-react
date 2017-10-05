@@ -1,9 +1,11 @@
-export default function securityContext(state = { isLoggedIn: false }, action) {
+import * as actionTypes from '../constants/securityContextConstants';
+
+export default function securityContext(state = { isLoggedIn: false, user: null }, action) {
   switch (action.type) {
-    case 'LOGIN':
-      return { ...state, isLoggedIn: true };
-    case 'LOGOUT':
-      return { ...state, isLoggedIn: false };
+    case actionTypes.LOGIN:
+      return { ...state, isLoggedIn: true, user: action.user };
+    case actionTypes.LOGOUT:
+      return { ...state, isLoggedIn: false, user: null };
     default:
       return state;
   }

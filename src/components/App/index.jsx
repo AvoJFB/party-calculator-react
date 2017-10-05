@@ -1,14 +1,32 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { BrowserRouter } from 'react-router-dom';
+import './index.css';
 import Routes from '../Routes';
+import GlobalTopBar from '../GlobalTopBar';
+import store from '../../store';
 
-const App = () => (
-  <BrowserRouter>
-    <div>
-      <h1>App container</h1>
-      <Routes />
-    </div>
-  </BrowserRouter>
-);
+const theme = createMuiTheme({
+  direction: 'ltr',
+  palette: {
+    type: 'dark', // Switching the dark mode on is a single property value change.
+  },
+});
+
+function App() {
+  return (
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <BrowserRouter>
+          <div>
+            <GlobalTopBar />
+            <Routes />
+          </div>
+        </BrowserRouter>
+      </MuiThemeProvider>
+    </Provider>
+  );
+}
 
 export default App;

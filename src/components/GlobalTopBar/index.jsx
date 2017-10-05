@@ -1,26 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MenuIcon from 'material-ui-icons/Menu';
+import withStyles from 'material-ui/styles/withStyles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
+import AuthContainer from '../../containers/AuthContainer';
 
 
-function ButtonAppBar() {
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton color="contrast" aria-label="Menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography type="title" color="inherit" >
-          Title
-        </Typography>
-        <Button color="contrast">Login</Button>
-      </Toolbar>
-    </AppBar>
-  );
+const styles = () => ({
+  root: {
+    width: '100%',
+    color: 'white',
+    backgroundColor: 'black',
+  },
+  flex: {
+    flex: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+});
+
+class GlobalTopBar extends Component {
+  constructor(props) {
+    super(props);
+    this.classes = props.classes;
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className={this.classes.root}>
+        <AppBar position="static" color="default">
+          <Toolbar className={this.classes.flex}>
+            <IconButton className={this.classes.menuButton} aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography type="title" color="inherit">
+              Party calculator
+            </Typography>
+            <div className={this.classes.flex} />
+            <AuthContainer />
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
-export default ButtonAppBar;
+export default withStyles(styles)(GlobalTopBar);
