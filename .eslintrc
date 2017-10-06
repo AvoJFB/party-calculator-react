@@ -3,7 +3,11 @@
   "rules": {
     "no-console": 0,
     "import/extensions": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "max-len": [
+      "error",
+      150
+    ]
   },
   "globals": {
     "document": true

@@ -1,0 +1,20 @@
+.tab-item-container {
+    padding: 10px;
+}
+
+.flex-container {
+    height: 100%;
+    padding: 0;
+    margin-top: 40px;
+    justify-content: center;
+    align-items: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.paper {
+    background-color: inherit !important;
+}

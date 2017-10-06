@@ -1,19 +1,23 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import LoginPage from '../LoginPage';
+import { Switch } from 'react-router-dom';
+import LoginPage from '../views/LoginPage';
 import store from '../../store';
+import ConfigurableRoute from './ConfigurableRoute';
 
-const requireAuth = (nextState, replace) => {
-  console.log(1);
+const requireAuth = (history) => {
   if (!store.getState().securityContext.isLoggedIn) {
-    replace({
-      pathname: '/login',
-    });
+    history.replace('/signIn');
+  }
+};
+const requireLogout = (history) => {
+  if (store.getState().securityContext.isLoggedIn) {
+    history.replace('/');
   }
 };
 export default () => (
   <Switch>
-    <Route path="/" onEnter={requireAuth} />
-    <Route path="/login" component={LoginPage} />
+    <ConfigurableRoute exact path="/" onEnter={requireAuth} />
+    <ConfigurableRoute exact path="/signIn" component={LoginPage} onEnter={requireLogout} />
+    <ConfigurableRoute exact path="/signUp" component={LoginPage} onEnter={requireLogout} />
   </Switch>
 );

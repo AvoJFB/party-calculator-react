@@ -1,0 +1,42 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.field label {
+    color: #5b5b67;
+}
+
+.field p {
+    color: red;
+}
+
+.field input {
+    caret-color: black;
+    color: black;
+}
+
+.field input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: black;
+    -webkit-box-shadow: 0 0 0 30px #eeeeee inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.field ::before {
+    background-color: rgba(0, 0, 0, 0.71) !important;
+}
+
+.button {
+    margin-top: 20px;
+    color: black;
+}

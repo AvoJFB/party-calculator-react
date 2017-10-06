@@ -5,7 +5,6 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import AuthContainer from '../../containers/AuthContainer';
 
 
 const styles = () => ({
@@ -42,7 +41,6 @@ class GlobalTopBar extends Component {
               Party calculator
             </Typography>
             <div className={this.classes.flex} />
-            <AuthContainer />
           </Toolbar>
         </AppBar>
       </div>
