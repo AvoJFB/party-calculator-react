@@ -5,7 +5,8 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-
+import Auth from '../Auth';
+import AuthContainer from '../../containers/AuthContainer';
 
 const styles = () => ({
   root: {
@@ -30,6 +31,7 @@ class GlobalTopBar extends Component {
   }
 
   render() {
+    const WrappedAuth = AuthContainer(Auth);
     return (
       <div className={this.classes.root}>
         <AppBar position="static" color="default">
@@ -41,6 +43,7 @@ class GlobalTopBar extends Component {
               Party calculator
             </Typography>
             <div className={this.classes.flex} />
+            <WrappedAuth />
           </Toolbar>
         </AppBar>
       </div>

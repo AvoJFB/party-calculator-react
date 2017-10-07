@@ -11,4 +11,10 @@ export const API = {
       data: credentials,
     }
   ),
+  logout: () => (
+    {
+      url: `${ORIGIN}/logout/`,
+      method: ALLOWED_METHODS.GET,
+    }
+  ),
 };
