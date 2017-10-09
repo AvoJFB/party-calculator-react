@@ -3,6 +3,9 @@ export const ALLOWED_METHODS = {
   GET: 'GET',
   POST: 'POST',
 };
+export const getPayload = resp => (
+  resp.data
+);
 export const API = {
   login: credentials => (
     {
@@ -15,6 +18,13 @@ export const API = {
     {
       url: `${ORIGIN}/logout/`,
       method: ALLOWED_METHODS.GET,
+    }
+  ),
+  signUp: credentials => (
+    {
+      url: `${ORIGIN}/signup`,
+      methos: ALLOWED_METHODS.POST,
+      data: credentials,
     }
   ),
 };

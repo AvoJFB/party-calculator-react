@@ -5,6 +5,7 @@ import { logIn, logOut } from '../actions/securityContextActions';
 const mapDispatchToProps = dispatch => ({
   onLogIn: user => dispatch(logIn(user)),
   onLogOut: () => dispatch(logOut()),
+  onSignUp: credentials => dispatch(credentials),
 });
 const AuthContainer = Component => (
   connect(null, mapDispatchToProps)(SecurityContextContainer(Component)));
