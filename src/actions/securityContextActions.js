@@ -7,7 +7,7 @@ export const logIn = credentials => dispatch => (
     .then(response => dispatch({ type: actionTypes.LOGIN, user: getPayload(response) }))
 );
 
-export const logOut = dispatch => (axios(API.logout())
+export const logOut = () => dispatch => (axios(API.logout())
   .then(() => dispatch({ type: actionTypes.LOGOUT })));
 
 export const signUp = dispatch => (axios(API.signUp()))
