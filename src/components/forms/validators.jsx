@@ -61,10 +61,8 @@ export const Validatable = Target => class extends Target {
     return this.state.$validated ? this.getErrorMessages(key)[0] || '' : '';
   }
 
-  resetValidation() {
-    if (this.state.$validated) {
-      this.setState({ $validated: false });
-    }
+  resetAllErrors() {
+    delete this.$errors;
   }
 
   componentWillMount() {
