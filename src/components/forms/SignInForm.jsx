@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, TextField } from 'material-ui';
 import styles from './index.css';
-import { Validated, Validatable } from './validators';
+import { OnValidated, Form } from './validators';
 
-@Validatable
+@Form
 class SignInForm extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +15,7 @@ class SignInForm extends Component {
     this.setState({ [fieldName]: value });
   }
 
-  @Validated
+  @OnValidated
   onSubmit() {
     this.props.onLogIn(this.state)
       .then(() => this.props.onSubmitted());

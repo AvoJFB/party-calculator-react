@@ -15,7 +15,7 @@ const validators = {
   ),
 };
 
-export const Validated = (target, name, descriptor) => {
+export const OnValidated = (target, name, descriptor) => {
   const oldValue = descriptor.value;
   descriptor.value = function value(...args) {
     this.$errors = {};
@@ -36,7 +36,7 @@ export const Validated = (target, name, descriptor) => {
   };
   return descriptor;
 };
-export const Validatable = Target => class extends Target {
+export const Form = Target => class extends Target {
   isValid() {
     return !this.$errors || Object.keys(this.$errors).length === 0;
   }
@@ -57,6 +57,11 @@ export const Validatable = Target => class extends Target {
     }
   }
 
+  /**
+   * @function getDefaultErrorMessage
+   * @param key
+   * @returns {*}
+   */
   getDefaultErrorMessage(key) {
     return this.state.$validated ? this.getErrorMessages(key)[0] || '' : '';
   }
