@@ -23,7 +23,7 @@ export const API = {
   signUp: credentials => (
     {
       url: `${ORIGIN}/signup`,
-      methos: ALLOWED_METHODS.POST,
+      method: ALLOWED_METHODS.POST,
       data: credentials,
     }
   ),
