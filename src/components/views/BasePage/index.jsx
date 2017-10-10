@@ -3,10 +3,10 @@ import { Route, withRouter } from 'react-router-dom';
 import LoginPage from '../LoginPage';
 import AuthContainer from '../../../containers/AuthContainer';
 
-class BaseRoute extends React.Component {
+class BasePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loaded: false };
+    this.state = { loaded: !this.loadIsNeeded() };
   }
 
   async componentWillMount() {
@@ -14,13 +14,17 @@ class BaseRoute extends React.Component {
     /**
      * check if securityContext is not initialized
      */
-    if (securityContext.isLoggedIn === null) {
+    if (this.loadIsNeeded()) {
       await this.props.onSessionRefresh();
+      await this.setState({ loaded: true });
     }
     if (!securityContext.isLoggedIn && location.pathname === '/') {
       history.replace('/signIn');
     }
-    this.setState({ loaded: true });
+  }
+
+  loadIsNeeded() {
+    return this.props.securityContext.isLoggedIn === null;
   }
 
   render() {
@@ -30,12 +34,12 @@ class BaseRoute extends React.Component {
         <Route exact path="/signUp" component={LoginPage} />
       </div>
     );
-    return this.state.loaded ? content : ''; // todo add loading indicator here
+    return this.state.loaded ? content : '';
   }
 }
 
-const Routes = () => (
-  <Route path="/" component={AuthContainer(withRouter(BaseRoute))} />
+const BasePageContainer = () => (
+  <Route path="/" component={AuthContainer(withRouter(BasePage))} />
 );
-export default Routes;
+export default BasePageContainer;
 

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import loading from './actions/commonActions';
 
 export const ORIGIN = 'http://localhost:8000';
 export const API_PATH_PREFIX = '/api';
@@ -10,12 +11,23 @@ export const ALLOWED_METHODS = {
 export const getPayload = resp => (
   resp.data.payload
 );
+let pendingRequests = 0;
 export const API = {
-  doRequest: request => (
-    axios({ ...request, withCredentials: true })
+  doRequest: (request) => {
+    if (pendingRequests === 0) {
+      loading(true);
+    }
+    pendingRequests += 1;
+    return axios({ ...request, withCredentials: true })
       .then(req => (Promise.resolve(req)))
       .catch(req => (Promise.reject(req.response)))
-  ),
+      .finally(() => {
+        pendingRequests -= 1;
+        if (pendingRequests === 0) {
+          loading(false);
+        }
+      });
+  },
   login: credentials => (
     {
       url: `${ORIGIN + API_PATH_PREFIX}/security/login`,

@@ -3,9 +3,11 @@ import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import BasePage from '../views/BasePage';
+import BasePageContainer from '../views/BasePage';
 import GlobalTopBar from '../GlobalTopBar';
 import store from '../../store';
+import LoadingIndicator from '../LoadingIndicator/index';
+import commonContainer from '../../containers/commonContainer';
 
 const theme = createMuiTheme({
   direction: 'ltr',
@@ -15,13 +17,15 @@ const theme = createMuiTheme({
 });
 
 function App() {
+  const LoadingIndicatorWrapp = commonContainer(LoadingIndicator);
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
         <BrowserRouter>
           <div>
             <GlobalTopBar />
-            <BasePage />
+            <BasePageContainer />
+            <LoadingIndicatorWrapp />
           </div>
         </BrowserRouter>
       </MuiThemeProvider>
