@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import { Paper } from 'material-ui';
 import s from './index.css';
 import SignInForm from '../../forms/SignInForm';
 import SignUpForm from '../../forms/SignUpForm';
 import AuthContainer from '../../../containers/AuthContainer';
+import SecurityContextContainer from '../../../containers/SecurityContextContainer';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -14,6 +16,15 @@ class LoginPage extends Component {
       '/signUp',
     ];
     this.state = { tab: this.tabs.indexOf(this.props.location.pathname) };
+  }
+
+  componentWillMount() {
+    /**
+     *  prevent logged in users see this page
+     */
+    if (this.props.securityContext.isLoggedIn) {
+      this.props.history.replace('/');
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,7 +49,8 @@ class LoginPage extends Component {
             <Tab label="Sign in" />
             <Tab label="Sign up" />
           </Tabs>
-          {tab === this.tabs.indexOf('/signIn') && <WrappedSignInForm onSubmitted={() => this.props.history.push('/')} />}
+          {tab === this.tabs.indexOf('/signIn') &&
+          <WrappedSignInForm onSubmitted={() => this.props.history.push('/')} />}
           {tab === this.tabs.indexOf('/signUp') && <SignUpForm />}
         </Paper>
       </div>
@@ -47,4 +59,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default SecurityContextContainer(withRouter(LoginPage));

@@ -1,14 +1,23 @@
-import axios from 'axios';
 import { API, getPayload } from '../config';
 import * as actionTypes from '../constants/securityContextConstants';
 
 export const logIn = credentials => dispatch => (
-  axios(API.login(credentials))
+  API.doRequest(API.login(credentials))
     .then(response => dispatch({ type: actionTypes.LOGIN, user: getPayload(response) }))
 );
 
-export const logOut = () => dispatch => (axios(API.logout())
+export const logOut = () => dispatch => (API.doRequest(API.logout())
   .then(() => dispatch({ type: actionTypes.LOGOUT })));
 
-export const signUp = dispatch => (axios(API.signUp()))
+export const restoreSession = () => dispatch => (API.doRequest(API.restoreSession())
+  .then((req) => {
+    dispatch({ type: actionTypes.LOGIN, user: getPayload(req) });
+    return req;
+  }))
+  .catch((req) => {
+    dispatch({ type: actionTypes.LOGOUT });
+    return req;
+  });
+
+export const signUp = dispatch => (API.doRequest(API.signUp()))
   .then(response => dispatch({ type: actionTypes.LOGIN, user: getPayload(response) }));

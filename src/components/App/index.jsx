@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import Routes from '../Routes';
+import BasePage from '../views/BasePage';
 import GlobalTopBar from '../GlobalTopBar';
 import store from '../../store';
 
@@ -21,7 +21,7 @@ function App() {
         <BrowserRouter>
           <div>
             <GlobalTopBar />
-            <Routes />
+            <BasePage />
           </div>
         </BrowserRouter>
       </MuiThemeProvider>
