@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import SwipeableViews from 'react-swipeable-views';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import { Paper } from 'material-ui';
 import s from './index.css';
@@ -8,6 +9,14 @@ import SignUpForm from '../../forms/SignUpForm';
 import AuthContainer from '../../../containers/AuthContainer';
 import SecurityContextContainer from '../../../containers/SecurityContextContainer';
 
+function TabContainer({ children, dir }) {
+  return (
+    <div dir={dir} style={{ padding: 8 * 3 }}>
+      {children}
+    </div>
+  );
+}
+
 class LoginPage extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +24,7 @@ class LoginPage extends Component {
       '/signIn',
       '/signUp',
     ];
+    console.log(this.props.location.pathname);
     this.state = { tab: this.tabs.indexOf(this.props.location.pathname) };
   }
 
@@ -33,26 +43,50 @@ class LoginPage extends Component {
     }
   }
 
-  onTabSelected(event, tab) {
-    if (tab !== this.state.tab) {
-      this.props.history.push(this.tabs[tab]);
-    }
+  onSubmit() {
+    this.props.history.push('/');
   }
+
+
+  onTransitionEnd = () => {
+    this.props.history.push(this.tabs[this.state.tab]);
+  };
+  changeTabIndex = (index) => {
+    this.setState({ tab: index });
+  };
+
+
+  changeTab = (e, index) => {
+    this.changeTabIndex(index);
+  };
 
   render() {
     const { tab } = this.state;
-    const WrappedSignInForm = AuthContainer(SignInForm);
+    const SignIn = AuthContainer(SignInForm);
+    const SignUp = AuthContainer(SignUpForm);
+    const tabConf = {
+      indicatorColor: 'primary',
+      value: tab,
+      indicatorClassName: s['tab-indicator'],
+      onTransitionEnd: this.onTransitionEnd,
+      onChange: this.changeTab,
+    };
     return (
-      <div className={s['flex-container']}>
-        <Paper className={s.paper}>
-          <Tabs indicatorColor="primary" value={tab} onChange={(event, val) => this.onTabSelected(event, val)}>
-            <Tab label="Sign in" />
-            <Tab label="Sign up" />
-          </Tabs>
-          {tab === this.tabs.indexOf('/signIn') &&
-          <WrappedSignInForm onSubmitted={() => this.props.history.push('/')} />}
-          {tab === this.tabs.indexOf('/signUp') && <SignUpForm />}
-        </Paper>
+      <div className={s['flex-container-row']}>
+        <div className={s['flex-container-column']}>
+          <div style={{ minWidth: 0, width: '100%' }} />
+          <Paper className={s.paper}>
+            <Tabs {...tabConf} fullWidth centered>
+              <Tab label="Sign in" styles={{ minWidth: '50%' }} />
+              <Tab label="Sign up" styles={{ minWidth: '50%' }} />
+            </Tabs>
+            <SwipeableViews axis={'x'} index={this.state.tab} onChangeIndex={this.changeTabIndex}>
+              <TabContainer dir={'x'}> <SignIn onSubmitted={() => this.onSubmit()} /></TabContainer>
+              <TabContainer dir={'x'}> <SignUp onSubmitted={() => this.onSubmit()} /></TabContainer>
+            </SwipeableViews>
+          </Paper>
+          <div style={{ minWidth: 0, width: '100%' }} />
+        </div>
       </div>
 
     );

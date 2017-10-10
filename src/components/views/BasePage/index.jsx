@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import LoginPage from '../LoginPage';
 import AuthContainer from '../../../containers/AuthContainer';
+import Dashboard from '../../Dashboard/index';
 
 class BasePage extends React.Component {
   constructor(props) {
@@ -28,13 +29,17 @@ class BasePage extends React.Component {
   }
 
   render() {
-    const content = (
-      <div>
-        <Route exact path="/signIn" component={LoginPage} />
-        <Route exact path="/signUp" component={LoginPage} />
-      </div>
-    );
-    return this.state.loaded ? content : '';
+    let content;
+    if (!this.state.loaded) {
+      content = '';
+    } else if (!this.props.securityContext.isLoggedIn && this.props.location.pathname !== '/') {
+      content = (
+        <LoginPage />
+      );
+    } else {
+      content = <Dashboard />;
+    }
+    return content;
   }
 }
 

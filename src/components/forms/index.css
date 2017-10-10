@@ -1,7 +1,14 @@
-.login-form {
+.sign-in-form {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+}
+
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.field {
 }
 
 .field label {

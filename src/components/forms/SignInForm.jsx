@@ -34,26 +34,28 @@ class SignInForm extends Component {
 
   render() {
     return (
-      <form autoComplete="off" className={styles['login-form']} onSubmit={e => this.onSubmit(e)}>
-        <TextField
-          id="helperText"
-          className={styles.field}
-          label={this.scheme.title}
-          onChange={event => this.onChange('username', event.target.value)}
-          helperText={this.getDefaultErrorMessage('username')}
-          margin="normal"
-        />
-        <TextField
-          id="password"
-          label={this.scheme.title}
-          onChange={event => this.onChange('password', event.target.value)}
-          className={styles.field}
-          type="password"
-          helperText={this.getDefaultErrorMessage('password')}
-          autoComplete="current-password"
-          margin="normal"
-        />
-        <Button raised className={styles.button} type="submit">Sign in</Button>
+      <form autoComplete="off" onSubmit={e => this.onSubmit(e)}>
+        <div className={styles['sign-in-form']}>
+          <TextField
+            id="helperText"
+            className={styles.field}
+            label={this.scheme.username.title}
+            onChange={event => this.onChange('username', event.target.value)}
+            helperText={this.getDefaultErrorMessage('username')}
+            margin="normal"
+          />
+          <TextField
+            id="password"
+            label={this.scheme.password.title}
+            onChange={event => this.onChange('password', event.target.value)}
+            className={styles.field}
+            type="password"
+            helperText={this.getDefaultErrorMessage('password')}
+            autoComplete="current-password"
+            margin="normal"
+          />
+          <Button raised className={styles.button} type="submit">Sign in</Button>
+        </div>
       </form>
     );
   }
