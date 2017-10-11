@@ -63,7 +63,7 @@ module.exports = {
   },
   plugins: [
     HtmlWebpackPluginConfig,
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devtool: 'source-map',
   devServer: {

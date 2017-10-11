@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import { Paper } from 'material-ui';
@@ -17,40 +17,28 @@ function TabContainer({ children, dir }) {
   );
 }
 
-class LoginPage extends Component {
+class AuthPage extends Component {
   constructor(props) {
     super(props);
     this.tabs = [
       '/signIn',
       '/signUp',
     ];
-    console.log(this.props.location.pathname);
-    this.state = { tab: this.tabs.indexOf(this.props.location.pathname) };
-  }
-
-  componentWillMount() {
-    /**
-     *  prevent logged in users see this page
-     */
-    if (this.props.securityContext.isLoggedIn) {
-      this.props.history.replace('/');
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.location.pathname !== this.props.location.pathname) {
-      this.setState({ tab: this.tabs.indexOf(nextProps.location.pathname) });
-    }
+    this.state = {
+      tab: this.tabs.indexOf(this.props.location.pathname),
+      redirect: this.props.securityContext.isLoggedIn === true ? '/' : false,
+    };
   }
 
   onSubmit() {
-    this.props.history.push('/');
+    this.setState({ redirect: '/' });
   }
 
-
   onTransitionEnd = () => {
-    this.props.history.push(this.tabs[this.state.tab]);
+    /* global window */
+    window.history.pushState(null, null, this.tabs[this.state.tab]);
   };
+
   changeTabIndex = (index) => {
     this.setState({ tab: index });
   };
@@ -61,7 +49,10 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { tab } = this.state;
+    const { tab, redirect } = this.state;
+    if (redirect) {
+      return (<Redirect to={redirect} />);
+    }
     const SignIn = AuthContainer(SignInForm);
     const SignUp = AuthContainer(SignUpForm);
     const tabConf = {
@@ -93,4 +84,4 @@ class LoginPage extends Component {
   }
 }
 
-export default SecurityContextContainer(withRouter(LoginPage));
+export default SecurityContextContainer(withRouter(AuthPage));
