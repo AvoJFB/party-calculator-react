@@ -1,13 +1,13 @@
 import React from 'react';
+import { UIRouter, UIView } from '@uirouter/react';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import BasePageContainer from '../views/BasePage';
 import GlobalTopBar from '../GlobalTopBar';
-import store from '../../store';
+import store from '../../common/store';
 import LoadingIndicator from '../LoadingIndicator/index';
 import commonContainer from '../../containers/commonContainer';
+import router from '../../common/router';
 
 const theme = createMuiTheme({
   direction: 'ltr',
@@ -21,13 +21,13 @@ function App() {
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
-        <BrowserRouter>
+        <UIRouter router={router}>
           <div>
             <GlobalTopBar />
-            <BasePageContainer />
+            <UIView />
             <LoadingIndicatorWrapp />
           </div>
-        </BrowserRouter>
+        </UIRouter>
       </MuiThemeProvider>
     </Provider>
   );

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import { Paper } from 'material-ui';
@@ -8,6 +7,7 @@ import SignInForm from '../../forms/SignInForm';
 import SignUpForm from '../../forms/SignUpForm';
 import AuthContainer from '../../../containers/AuthContainer';
 import SecurityContextContainer from '../../../containers/SecurityContextContainer';
+import router from '../../../common/router';
 
 function TabContainer({ children, dir }) {
   return (
@@ -19,24 +19,24 @@ function TabContainer({ children, dir }) {
 
 class AuthPage extends Component {
   constructor(props) {
+    const { stateService } = router;
     super(props);
     this.tabs = [
-      '/signIn',
-      '/signUp',
+      'base.auth.signin',
+      'base.auth.signup',
     ];
     this.state = {
-      tab: this.tabs.indexOf(this.props.location.pathname),
+      tab: this.tabs.indexOf(stateService.current.name),
       redirect: this.props.securityContext.isLoggedIn === true ? '/' : false,
     };
   }
 
   onSubmit() {
-    this.setState({ redirect: '/' });
+    router.stateService.go('base.dashboard');
   }
 
   onTransitionEnd = () => {
-    /* global window */
-    window.history.pushState(null, null, this.tabs[this.state.tab]);
+    router.stateService.go(this.tabs[this.state.tab], undefined, { reload: false, location: true });
   };
 
   changeTabIndex = (index) => {
@@ -49,10 +49,7 @@ class AuthPage extends Component {
   };
 
   render() {
-    const { tab, redirect } = this.state;
-    if (redirect) {
-      return (<Redirect to={redirect} />);
-    }
+    const { tab } = this.state;
     const SignIn = AuthContainer(SignInForm);
     const SignUp = AuthContainer(SignUpForm);
     const tabConf = {
@@ -84,4 +81,4 @@ class AuthPage extends Component {
   }
 }
 
-export default SecurityContextContainer(withRouter(AuthPage));
+export default SecurityContextContainer(AuthPage);

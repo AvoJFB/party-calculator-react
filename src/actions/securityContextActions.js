@@ -1,4 +1,4 @@
-import { API, getPayload } from '../config';
+import { API, getPayload } from '../common/config';
 import * as actionTypes from '../constants/securityContextConstants';
 
 export const logIn = credentials => dispatch => (

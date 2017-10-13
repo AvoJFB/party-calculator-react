@@ -1,16 +1,13 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import AuthContainer from '../../../containers/AuthContainer';
-import BasePage from './BasePage';
-import StateForRoute from '../../common/StateForRoute';
+import { UIView } from '@uirouter/react';
 
-const BasePageContainer = () => {
-  const config = {
-    path: '/',
-    component: BasePage,
-    containers: [withRouter, AuthContainer],
-    resolves: ['onSessionRefresh'],
-  };
-  return (<StateForRoute {...config} />);
-};
-export default BasePageContainer;
+export default class BasePage extends React.Component {
+  componentDidMount() {
+    const state = this.props.transition.router.stateService;
+    state.go('base.dashboard', null, { reload: false, location: true });
+  }
+
+  render() {
+    return (<UIView />);
+  }
+}
