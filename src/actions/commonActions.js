@@ -1,4 +1,4 @@
-import LOADING from '../constants/commonConstants';
+import { LOADING } from '../constants/commonConstants';
 import store from '../common/store';
 
 const loading = isLoading => (

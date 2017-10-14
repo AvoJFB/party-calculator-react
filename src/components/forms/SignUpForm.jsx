@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toastr } from 'react-redux-toastr';
 import { Button, TextField } from 'material-ui';
 import styles from './index.css';
 import { Form, OnValidated } from './validators';
@@ -18,9 +19,10 @@ class SignUpForm extends Component {
 
   @OnValidated
   onSubmit() {
-    const [username, password] = this.state;
+    const { username, password } = this.state;
     this.props.onSignUp({ username, password })
-      .then(() => this.props.onSubmitted());
+      .then(() => this.props.onSubmitted())
+      .catch(() => toastr.error('Error', 'Sign up will be implemented soon.')); // todo server error message here
   }
 
   stopSubmitPropagation = true;

@@ -1,4 +1,4 @@
-import LOADING from '../constants/commonConstants';
+import { LOADING } from '../constants/commonConstants';
 
 export default function common(state = { isLoading: false }, action) {
   switch (action.type) {

@@ -19,5 +19,5 @@ export const restoreSession = () => dispatch => (API.doRequest(API.restoreSessio
     return req;
   });
 
-export const signUp = dispatch => (API.doRequest(API.signUp()))
+export const signUp = credentials => dispatch => (API.doRequest(API.signUp(credentials)))
   .then(response => dispatch({ type: actionTypes.LOGIN, user: getPayload(response) }));

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toastr } from 'react-redux-toastr';
 import { Button, TextField } from 'material-ui';
 import styles from './index.css';
 import { OnValidated, Form } from './validators';
@@ -18,7 +19,8 @@ class SignInForm extends Component {
   @OnValidated
   onSubmit() {
     this.props.onLogIn(this.state)
-      .then(() => this.props.onSubmitted());
+      .then(() => this.props.onSubmitted())
+      .catch(resp => toastr.error('Error', resp.data.service.error_message));
   }
 
   stopSubmitPropagation = true;
