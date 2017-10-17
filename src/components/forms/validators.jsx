@@ -37,6 +37,38 @@ export const OnValidated = (target, name, descriptor) => {
   return descriptor;
 };
 export const Form = Target => class extends Target {
+  constructor(props) {
+    super(props);
+    if (this.scheme) {
+      this.validators = [];
+      Object.keys(this.scheme).forEach((key) => {
+        this.validators.push({
+          validate: () => {
+            const definedValidators = (this.scheme[key].validators || []);
+            const errors = [];
+            definedValidators.forEach((validator) => {
+              let validationResult;
+              let validatorName;
+              if (typeof validator === 'string') {
+                validationResult = validators[validator].apply({ key }, [this.state[key]]);
+                validatorName = validator;
+              } else {
+                validationResult = validator.fn();
+                validatorName = validator.name;
+              }
+              if (validationResult === true) {
+                errors.push(validatorName);
+              }
+            });
+            if (errors.length > 0) {
+              this.$errors[key] = errors;
+            }
+          },
+        });
+      });
+    }
+  }
+
   isValid() {
     return !this.$errors || Object.keys(this.$errors).length === 0;
   }
@@ -68,36 +100,5 @@ export const Form = Target => class extends Target {
 
   resetAllErrors() {
     delete this.$errors;
-  }
-
-  componentWillMount() {
-    if (this.scheme) {
-      this.validators = [];
-      Object.keys(this.scheme).forEach((key) => {
-        this.validators.push({
-          validate: () => {
-            const definedValidators = (this.scheme[key].validators || []);
-            const errors = [];
-            definedValidators.forEach((validator) => {
-              let validationResult;
-              let validatorName;
-              if (typeof validator === 'string') {
-                validationResult = validators[validator].apply({ key }, [this.state[key]]);
-                validatorName = validator;
-              } else {
-                validationResult = validator.fn();
-                validatorName = validator.name;
-              }
-              if (validationResult === true) {
-                errors.push(validatorName);
-              }
-            });
-            if (errors.length > 0) {
-              this.$errors[key] = errors;
-            }
-          },
-        });
-      });
-    }
   }
 };
