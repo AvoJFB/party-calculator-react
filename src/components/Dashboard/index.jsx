@@ -6,6 +6,13 @@ class Dashboard extends Component {
     this.state = {};
   }
 
+  componentWillMount() {
+    const { securityContext, history } = this.props;
+    if (!securityContext.isLoggedIn) {
+      history.replace('/signIn');
+    }
+  }
+
   render() {
     return (
       <div>Dashboard</div>

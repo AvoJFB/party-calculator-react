@@ -7,7 +7,6 @@ import SignInForm from '../../forms/SignInForm';
 import SignUpForm from '../../forms/SignUpForm';
 import AuthContainer from '../../../containers/AuthContainer';
 import SecurityContextContainer from '../../../containers/SecurityContextContainer';
-import router from '../../../common/router';
 
 function TabContainer({ children, dir }) {
   return (
@@ -19,24 +18,31 @@ function TabContainer({ children, dir }) {
 
 class AuthPage extends Component {
   constructor(props) {
-    const { stateService } = router;
+    const { match } = props;
     super(props);
     this.tabs = [
-      'base.auth.signin',
-      'base.auth.signup',
+      '/signIn',
+      '/signUp',
     ];
     this.state = {
-      tab: this.tabs.indexOf(stateService.current.name),
+      tab: this.tabs.indexOf(match.url),
       redirect: this.props.securityContext.isLoggedIn === true ? '/' : false,
     };
   }
 
+  componentWillMount() {
+    const { securityContext, history } = this.props;
+    if (securityContext.isLoggedIn) {
+      history.replace('/dashboard');
+    }
+  }
+
   onSubmit() {
-    router.stateService.go('base.dashboard');
+    this.props.history.push('/dashboard');
   }
 
   onTransitionEnd = () => {
-    router.stateService.go(this.tabs[this.state.tab], undefined, { reload: false, location: true });
+    this.props.history.replace(this.tabs[this.state.tab]);
   };
 
   changeTabIndex = (index) => {

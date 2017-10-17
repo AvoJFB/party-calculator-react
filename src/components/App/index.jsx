@@ -1,6 +1,6 @@
 import React from 'react';
 import ReduxToastr from 'react-redux-toastr';
-import { UIRouter, UIView } from '@uirouter/react';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import './index.css';
@@ -8,8 +8,8 @@ import GlobalTopBar from '../GlobalTopBar';
 import store from '../../common/store';
 import LoadingIndicator from '../LoadingIndicator/index';
 import commonContainer from '../../containers/commonContainer';
-import router from '../../common/router';
 import { toasterConfig } from '../../constants/commonConstants';
+import IndexView from '../views/index';
 
 const theme = createMuiTheme({
   direction: 'ltr',
@@ -23,14 +23,14 @@ function App() {
   return (
     <Provider store={store}>
       <MuiThemeProvider theme={theme}>
-        <UIRouter router={router}>
+        <BrowserRouter>
           <div>
             <GlobalTopBar />
-            <UIView />
+            <IndexView />
             <LoadingIndicatorWrapp />
             <ReduxToastr {...toasterConfig} />
           </div>
-        </UIRouter>
+        </BrowserRouter>
       </MuiThemeProvider>
     </Provider>
   );

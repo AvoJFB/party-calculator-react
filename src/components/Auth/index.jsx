@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import router from '../../common/router';
+import { withRouter } from 'react-router-dom';
 
 const Auth = (props) => {
   let button;
@@ -8,7 +8,7 @@ const Auth = (props) => {
     button = (
       <div>
         <span>{props.securityContext.user.username}</span>
-        <Button onClick={() => props.onLogOut().then(() => router.stateService.go('base.auth.signin'))}>Logout</Button>
+        <Button onClick={() => props.onLogOut().then(() => props.history.push('/signIn'))}>Logout</Button>
       </div>
     );
   } else {
@@ -20,4 +20,4 @@ const Auth = (props) => {
     </div>);
 };
 
-export default Auth;
+export default withRouter(Auth);
