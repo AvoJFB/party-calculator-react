@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
-import Auth from '../Auth';
+import Auth from './Auth';
 import AuthContainer from '../../containers/AuthContainer';
 
 const styles = () => ({

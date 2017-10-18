@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import router from '../../common/router';
+import router from '../../../common/router';
 
 const Auth = (props) => {
   let button;

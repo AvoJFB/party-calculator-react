@@ -1,5 +1,5 @@
 import { UIView } from '@uirouter/react';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../components/views/Dashboard';
 import AuthPage from '../components/views/AuthPage';
 import store from './store';
 import { restoreSession } from '../actions/securityContextActions';

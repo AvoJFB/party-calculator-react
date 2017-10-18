@@ -19,7 +19,7 @@ const styles = {
     'flex-direction': 'row',
     height: 'auto',
     position: 'absolute',
-    width: cardWidth,
+    width: cardWidth - 10,
     'justify-content': 'center',
     bottom: 5,
   },

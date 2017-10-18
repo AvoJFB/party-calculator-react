@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PartyCard from '../PartyCard/index';
+import PartyCard from '../../PartyCard/index';
 import styles from './index.css';
 
 class Dashboard extends Component {
