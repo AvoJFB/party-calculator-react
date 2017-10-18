@@ -1,0 +1,8 @@
+.dashboard-container {
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    max-width: 100vh;
+    flex-wrap: wrap;
+    justify-content: center;
+}
