@@ -1,8 +1,13 @@
 .dashboard-container {
     height: 100%;
-    padding: 15px;
     display: flex;
-    max-width: 100vh;
-    flex-wrap: wrap;
+    max-width: 100%;
     justify-content: center;
+}
+
+.cards-list {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    display: flex;
 }

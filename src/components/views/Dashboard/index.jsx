@@ -21,6 +21,20 @@ class Dashboard extends Component {
           avatarUrl: 'http://static.sfdict.com/editorial-content/55tpbg0qcsp4/1yyCc4qjcMAQGKkSIe0Kqu/42c4df2d901' +
           '46a9563f66d9cb4140d73/weather_graphic.jpg?w=175&h=148',
         },
+        {
+          id: 3,
+          name: 'Monday party',
+          description: 'This party for mondays only, or for tuesdays, or every week',
+          avatarUrl: 'http://static.sfdict.com/editorial-content/55tpbg0qcsp4/1yyCc4qjcMAQGKkSIe0Kqu/42c4df2d901' +
+          '46a9563f66d9cb4140d73/weather_graphic.jpg?w=175&h=148',
+        },
+        {
+          id: 4,
+          name: 'Monday party',
+          description: 'This party for mondays only, or for tuesdays, or every week',
+          avatarUrl: 'http://static.sfdict.com/editorial-content/55tpbg0qcsp4/1yyCc4qjcMAQGKkSIe0Kqu/42c4df2d901' +
+          '46a9563f66d9cb4140d73/weather_graphic.jpg?w=175&h=148',
+        },
       ],
     };
   }
@@ -28,11 +42,13 @@ class Dashboard extends Component {
   render() {
     return (
       <div className={styles['dashboard-container']}>
-        {
-          this.state.parties.map(party => (
-            <PartyCard party={party} key={party.id.toString()} />
-          ))
-        }
+        <div className={styles['cards-list']}>
+          {
+            this.state.parties.map(party => (
+              <PartyCard party={party} key={party.id.toString()} />
+            ))
+          }
+        </div>
       </div>
     );
   }
