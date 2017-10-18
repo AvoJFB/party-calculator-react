@@ -12,12 +12,12 @@ router.plugin(pushStateLocationPlugin);
 states.forEach(state => router.stateRegistry.register(state));
 
 // Global config for router
-router.urlService.rules.initial({ state: 'base' });
-
+router.urlService.rules.initial({ state: 'base.dashboard' });
+router.urlRouter.otherwise('/dashboard');
 // Register the "requires auth" hook with the TransitionsService
 Object.entries(hooks).forEach((entry) => {
   const [, hook] = entry;
-  router.transitionService.onBefore(hook.criteria, hook.callback, { priority: 10 });
+  router.transitionService.onEnter(hook.criteria, hook.callback);
 });
 
 // Start the router

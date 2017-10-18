@@ -25,6 +25,7 @@ const states = [
   {
     name: 'base.auth',
     url: 'auth',
+    abstract: true,
     component: UIView,
     data: {
       requiresLogout: true,
